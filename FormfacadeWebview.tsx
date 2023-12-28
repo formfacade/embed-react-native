@@ -6,9 +6,10 @@ interface FormfacadeWebviewProps {
     prefillFormFn: () => any;
     customCSS?: string;
     formFacadeEmbedURL: string;
-    onSubmitFormHandler: () => void;
+    onSubmitFormHandler: (event: any) => void;
     onGoBackHandler?: () => void;
     isFormFullScreen?: boolean;
+    includeCart?: boolean;
 };
 
 const CART_HTML = `
@@ -100,10 +101,10 @@ const FormfacadeWebview = ({
     onSubmitFormHandler,
     onGoBackHandler,
     isFormFullScreen = true,
+    includeCart = false,
 }: FormfacadeWebviewProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
-    const includeCart = false;
 
     const handleGoBack = () => {
         if (onGoBackHandler) {
@@ -111,11 +112,11 @@ const FormfacadeWebview = ({
         }
     };
 
-    const handleMessage = event => {
+    const handleMessage = (event: any) => {
         if (event.nativeEvent.data === 'GO_BACK') {
             handleGoBack();
         } else if (event.nativeEvent.data?.includes('FORM_SUBMITTED_SUCCESS')) {
-            onSubmitFormHandler();
+            onSubmitFormHandler(event);
         }
     };
 
