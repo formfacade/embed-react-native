@@ -302,7 +302,7 @@ const FormfacadeEmbed = ({
                         // Set display none.
                         $('.ff-cart-count')?.css('display', 'none');
                         let key = "FORM_SUBMITTED_SUCCESS";
-                        if (window.formFacade?.result && window.formFacade?.result?submitSeq) {
+                        if (window.formFacade?.result && window.formFacade?.result?.submitSeq) {
                             key = key + "#" + window.formFacade?.result?.submitSeq;
                         }
                         window.ReactNativeWebView.postMessage(key);
