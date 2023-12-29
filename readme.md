@@ -8,7 +8,7 @@
 
 Embed Google Forms into your React Native app with a professional UI while removing the Google Form branding using Formfacade.
 
-![Description](https://cdn.formfacade.com/1FAIpQLSf2YKzD1EdnlSaqvIHkJZedwqJyqhcr3TH56YoJ3t1sDlSTFA/2127469628/prdorgimage/77_Screenshot%202023-12-29%20at%209.13.13%20AM.png)
+![Description](https://cdn.formfacade.com/1FAIpQLSf2YKzD1EdnlSaqvIHkJZedwqJyqhcr3TH56YoJ3t1sDlSTFA/root/banner/%40formfacade%3Aembed-react-native.png)
 
 ## Features
 
