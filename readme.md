@@ -35,7 +35,7 @@ npm i @formfacade/embed-react-native
 ```javascript
 import FormfacadeWebview from "@formfacade/embed-react-native";
 
-<FormfacadeWebview
+<FormfacadeEmbed
     formFacadeEmbedURL={FORMFACADE_FORM_URL}
     onSubmitFormHandler={onSubmitFormHandler}
     onGoBackHandler={onGoBackHandler}
@@ -101,7 +101,7 @@ const FormfacadeSupportForm = () => {
          <>
             <SafeAreaView style={styles.topBarSafeareaView} />
             <SafeAreaView style={styles.container}>
-                <FormfacadeWebview
+                <FormfacadeEmbed
                     formFacadeEmbedURL={FORMFACADE_FORM_URL}
                     onSubmitFormHandler={onSubmitFormHandler}
                     onGoBackHandler={onGoBackHandler}
