@@ -27,13 +27,13 @@ Embed Google Forms into your React Native app with a professional UI while remov
 Instructions on how to install the package:
 
 ```bash
-npm i @formfacade/embed-react-native
+npm i @formfacade.dev/embed-react-native
 ```
 
 ## Usage
 
 ```javascript
-import FormfacadeWebview from "@formfacade/embed-react-native";
+import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
 <FormfacadeEmbed
     formFacadeEmbedURL={FORMFACADE_FORM_URL}
@@ -55,7 +55,7 @@ import {
     Alert,
     SafeAreaView
 } from "react";
-import FormfacadeWebview from "@formfacade/embed-react-native";
+import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
 // MAKE SURE URL DOES NOT HAVE ANY QUERY PARAMS.
 const FORMFACADE_FORM_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLScVC2DLMntthPubxqJELBQapcrfyL3KffvwJrwcYMMz2e6EVA";
