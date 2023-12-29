@@ -1,3 +1,3 @@
-import FormfacadeWebview from "./FormfacadeWebview";
+import FormfacadeEmbed from "./FormfacadeEmbed.tsx";
 
-export default FormfacadeWebview;
+export default FormfacadeEmbed;
