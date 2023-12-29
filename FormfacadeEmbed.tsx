@@ -2,7 +2,7 @@ import React from 'react';
 import WebView from 'react-native-webview';
 import { Alert, StyleSheet } from 'react-native';
 
-interface FormfacadeWebviewProps {
+interface FormfacadeEmbedProps {
     prefillFormFn: () => any;
     customCSS?: string;
     formFacadeEmbedURL: string;
@@ -135,7 +135,7 @@ const onBackButtonDefaultHandler = () => {
     );
 }
 
-const FormfacadeWebview = ({
+const FormfacadeEmbed = ({
     prefillFormFn,
     customCSS = '',
     formFacadeEmbedURL,
@@ -145,7 +145,7 @@ const FormfacadeWebview = ({
     includeCart = false,
     headerBackgroundColor,
     headerIconColor,
-}: FormfacadeWebviewProps) => {
+}: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
     if (formFacadeEmbedURL?.includes('/public/')) {
@@ -369,4 +369,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default FormfacadeWebview;
+export default FormfacadeEmbed;
