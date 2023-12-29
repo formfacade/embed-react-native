@@ -10,6 +10,8 @@ interface FormfacadeWebviewProps {
     onGoBackHandler?: () => void;
     isFormFullScreen?: boolean;
     includeCart?: boolean;
+    headerBackgroundColor?: string;
+    headerIconColor?: string;
 };
 
 const CART_HTML = `
@@ -58,28 +60,40 @@ const CART_HTML = `
 
 `;
 
-const CART_HEADER_ICON = `
-<div 
-    id="cart-menu"
-    class="ml-4 inline-flex md:hidden md:ml-8 items-center justify-center whitespace-nowrap rounded-md border border-transparent r md:px-4 py-2 md:text-base font-medium text-white px-3 text-xs cursor-pointer relative
-    onclick="showCart()"
->
-    <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25">
-        <path fill="#fff" d="M286.788-81Q257-81 236-102.212q-21-21.213-21-51Q215-183 236.212-204q21.213-21 51-21Q317-225 338-203.788q21 21.213 21 51Q359-123 337.788-102q-21.213 21-51 21Zm400 0Q657-81 636-102.212q-21-21.213-21-51Q615-183 636.212-204q21.213-21 51-21Q717-225 738-203.788q21 21.213 21 51Q759-123 737.788-102q-21.213 21-51 21ZM205-801h589.074q22.964 0 34.945 21Q841-759 829-738L694-495q-11 19-28.559 30.5Q647.881-453 627-453H324l-56 104h491v60H277q-42 0-60.5-28t.5-63l64-118-152-322H51v-60h117l37 79Z"/>
-    </svg>
-    <span class="hidden bg-red-700 text-white font-extrabold text-center rounded-full h-4 w-4 items-center justify-center absolute top-1 right-1 ff-cart-count m-auto" style="font-size: 14px;line-height: .88rem;height: 20px; width: 20px;padding-top: 2.5px; font-weight: 400"></span>
-</div>
-`;
+const getHeaderIcon = (headerIconColor?: string) => {
+    return `
+        <div 
+            id="cart-menu"
+            class="ml-4 inline-flex md:hidden md:ml-8 items-center justify-center whitespace-nowrap rounded-md border border-transparent r md:px-4 py-2 md:text-base font-medium text-white px-3 text-xs cursor-pointer relative
+            onclick="showCart()"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25">
+                <path fill="#fff" d="M286.788-81Q257-81 236-102.212q-21-21.213-21-51Q215-183 236.212-204q21.213-21 51-21Q317-225 338-203.788q21 21.213 21 51Q359-123 337.788-102q-21.213 21-51 21Zm400 0Q657-81 636-102.212q-21-21.213-21-51Q615-183 636.212-204q21.213-21 51-21Q717-225 738-203.788q21 21.213 21 51Q759-123 737.788-102q-21.213 21-51 21ZM205-801h589.074q22.964 0 34.945 21Q841-759 829-738L694-495q-11 19-28.559 30.5Q647.881-453 627-453H324l-56 104h491v60H277q-42 0-60.5-28t.5-63l64-118-152-322H51v-60h117l37 79Z"/>
+            </svg>
+            <span 
+                class="hidden bg-red-700 text-white font-extrabold text-center rounded-full h-4 w-4 items-center justify-center absolute top-1 right-1 ff-cart-count m-auto ff-cart-icon"
+            >
+            </span>
+        </div>
 
-const getHeaderHTML = (includeCart: boolean) => {
+    `;
+}
+
+const getHeaderHTML = (includeCart: boolean, headerBackgroundColor?: string, headerIconColor?:string) => {
+    if(!headerBackgroundColor) {
+        headerBackgroundColor = '#5E33FB';
+    }
+    if(!headerIconColor) {
+        headerIconColor = '#ffffff';
+    }
     return `
         <header class="ff-mobile-header">
             <div onclick="goBackHandler()" class="ff-mobile-header-inner-container">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#FFF" viewBox="0 -960 960 960" width="24">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="${headerIconColor}" viewBox="0 -960 960 960" width="24">
                     <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
                 </svg>
             </div>
-            ${includeCart ? CART_HEADER_ICON : ''}
+            ${includeCart ? getHeaderIcon(headerIconColor) : ''}
         </header>
     `;
 };
@@ -102,6 +116,8 @@ const FormfacadeWebview = ({
     onGoBackHandler,
     isFormFullScreen = true,
     includeCart = false,
+    headerBackgroundColor,
+    headerIconColor,
 }: FormfacadeWebviewProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
@@ -121,7 +137,6 @@ const FormfacadeWebview = ({
     };
 
 
-
     const html = `
         <!DOCTYPE html>
         <html>
@@ -137,6 +152,26 @@ const FormfacadeWebview = ({
             <link rel="stylesheet" href="https://near.tl/css/tailwind.css">
             <style>
                 ${customCSS}
+                .ff-cart-items li {
+                    padding: 0px !important;
+                }
+                .ff-mobile-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: ${headerBackgroundColor};
+                    position: fixed;
+                    width: 100%;
+                    height: 60px;
+                    padding-left: 15px;
+                    padding-right: 6px;
+                    z-index: 6;
+                    color: ${headerIconColor};
+                }
+                #ff-compose {
+                  background-color: var(--ff-bgcolor);
+            
+                }
                 body {
                     position: relative !important;
                 }
@@ -147,6 +182,14 @@ const FormfacadeWebview = ({
                 .ff-mobile-header-inner-container {
                     font-weight: 600;
                     padding-left: 6.5px;
+                }
+                .ff-cart-icon {
+                    font-size: 14px;
+                    line-height: .88rem;
+                    height: 20px;
+                    width: 20px;
+                    padding-top: 2.5px;
+                    font-weight: 400;
                 }
             </style>
         </head>
@@ -171,7 +214,7 @@ const FormfacadeWebview = ({
                 }
             </script>
             
-            ${isFormFullScreen ? getHeaderHTML(includeCart) : ''}
+            ${isFormFullScreen ? getHeaderHTML(includeCart, headerBackgroundColor, headerIconColor) : ''}
             
             ${includeCart ? CART_HTML : ''}
 
@@ -199,7 +242,7 @@ const FormfacadeWebview = ({
                         window.ReactNativeWebView.postMessage(key);
                     } else if (arg === 'cart-product' || arg === 'cart-checkout') {
                         closeCartSidebar();
-                    }                    
+                    }
                 },
             }
         </script>
