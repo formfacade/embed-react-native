@@ -210,7 +210,7 @@ const FormfacadeEmbed = ({
             handleGoBack();
         } else if (data?.includes('FORM_SUBMITTED_SUCCESS')) {
             onSubmitFormHandler({
-                submitId: data.split('#')[1],
+                submitId: data?.split?.('#')?.[1] || '',
                 type: 'FORM_SUBMITTED_SUCCESS'
             });
         }
