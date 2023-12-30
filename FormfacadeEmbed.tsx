@@ -9,6 +9,7 @@ interface FormfacadeEmbedProps {
     onSubmitFormHandler: (event: any) => void;
     onGoBackHandler?: () => void;
     isFormFullScreen?: boolean;
+    headerTitle?: string;
     includeCart?: boolean;
     headerBackgroundColor?: string;
     headerIconColor?: string;
@@ -80,7 +81,7 @@ const getHeaderIcon = (headerIconColor?: string) => {
     `;
 }
 
-const getHeaderHTML = (includeCart: boolean, headerBackgroundColor?: string, headerIconColor?:string) => {
+const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgroundColor?: string, headerIconColor?:string) => {
     if(!headerBackgroundColor) {
         headerBackgroundColor = '#5E33FB';
     }
@@ -89,16 +90,23 @@ const getHeaderHTML = (includeCart: boolean, headerBackgroundColor?: string, hea
     }
     return `
         <header class="ff-mobile-header">
-            <button 
-                onclick="goBackHandler()" 
-                type="button"
-                class="ff-mobile-header-inner-container"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="${headerIconColor}" viewBox="0 -960 960 960" width="24">
-                    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                </svg>
-            </button>
-            ${includeCart ? getHeaderIcon(headerIconColor) : ''}
+            <div class="ff-mobile-header-left">
+                <button 
+                    onclick="goBackHandler()" 
+                    type="button"
+                    class="ff-mobile-header-inner-container"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="${headerIconColor}" viewBox="0 -960 960 960" width="24">
+                        <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                    </svg>
+                </button>
+                <div class="ff-mobile-header-title">
+                    ${headerTitle}
+                </div>
+            </div>
+            <div class="ff-mobile-header-right">
+                ${includeCart ? getHeaderIcon(headerIconColor) : ''}
+            </div>
         </header>
     `;
 };
@@ -133,7 +141,7 @@ const onBackButtonDefaultHandler = () => {
         ],
         { cancelable: false },
     );
-}
+};
 
 const FormfacadeEmbed = ({
     prefillFormFn,
@@ -142,9 +150,10 @@ const FormfacadeEmbed = ({
     onSubmitFormHandler = onSubmitDefaultHandler,
     onGoBackHandler = onBackButtonDefaultHandler,
     isFormFullScreen = true,
+    headerTitle = '',
     includeCart = false,
-    headerBackgroundColor,
-    headerIconColor,
+    headerBackgroundColor = '#5E33FB',
+    headerIconColor = '#ffffff',
 }: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
@@ -153,6 +162,8 @@ const FormfacadeEmbed = ({
     
         if (formFacadeEmbedURL?.includes('/home/form/')) {
             formFacadeEmbedURL = formFacadeEmbedURL.replace('/home/form/', '/form/');
+        } else if (formFacadeEmbedURL?.includes('/all/form/')) {
+            formFacadeEmbedURL = formFacadeEmbedURL.replace('/all/form/', '/form/');
         }
     
         // Save existing query parameters
@@ -162,6 +173,7 @@ const FormfacadeEmbed = ({
     
         if (queryParamsStartIndex !== -1) {
             queryParams = formFacadeEmbedURL.slice(queryParamsStartIndex);
+
             formFacadeEmbedURL = formFacadeEmbedURL.slice(0, queryParamsStartIndex);
         }
 
@@ -174,8 +186,7 @@ const FormfacadeEmbed = ({
     
     
         formFacadeEmbedURL += 'tailwind.js';
-
-        if(!queryParamsStartIndex) {
+        if(queryParamsStartIndex < 0) {
             formFacadeEmbedURL += '?';
         }
     
@@ -201,7 +212,6 @@ const FormfacadeEmbed = ({
         }
     };
 
-
     const html = `
         <!DOCTYPE html>
         <html>
@@ -211,7 +221,7 @@ const FormfacadeEmbed = ({
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
                 function prefillForm() {
-                    return ${prefillFormFn()}
+                    return ${prefillFormFn()};
                 }
             </script>
             <link rel="stylesheet" href="https://near.tl/css/tailwind.css">
@@ -219,6 +229,10 @@ const FormfacadeEmbed = ({
                 ${customCSS}
                 .ff-cart-items li {
                     padding: 0px !important;
+                }
+                .ff-mobile-header-title {
+                    font-weight: 500;
+                    font-size: 18px;
                 }
                 .ff-mobile-header {
                     display: flex;
@@ -233,16 +247,20 @@ const FormfacadeEmbed = ({
                     z-index: 6;
                     color: ${headerIconColor};
                 }
+                .ff-mobile-header-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
                 #ff-compose {
                   background-color: var(--ff-bgcolor);
-            
                 }
                 body {
                     position: relative !important;
                 }
                 .ff-compose-parent {
                     padding: 14px;
-                    padding-top: 60px;
+                    padding-top: ${isFormFullScreen ? '50px' : '0px'};
                     background-color: var(--ff-bgcolor);
                 }
                 .ff-mobile-header-inner-container {
@@ -280,7 +298,7 @@ const FormfacadeEmbed = ({
                 }
             </script>
             
-            ${isFormFullScreen ? getHeaderHTML(includeCart, headerBackgroundColor, headerIconColor) : ''}
+            ${isFormFullScreen ? getHeaderHTML(headerTitle, includeCart, headerBackgroundColor, headerIconColor) : ''}
             
             ${includeCart ? CART_HTML : ''}
 
@@ -290,7 +308,7 @@ const FormfacadeEmbed = ({
                 </div>
             </div>
         </body>
-        <script async defer src="${formFacadeEmbedURL}"></script>
+        <script async defer src="${formFacadeEmbedURL}&prefill=prefillForm"></script>
         <script>
             window.facadeListener = {
                 onChange: function (arg) {
