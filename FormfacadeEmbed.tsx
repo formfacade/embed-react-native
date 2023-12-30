@@ -153,7 +153,7 @@ const FormfacadeEmbed = ({
     includeCart = false,
     headerBackgroundColor = '#5E33FB',
     headerIconColor = '#ffffff',
-    prefillFormFn = () => {},
+    prefillFormFn = () => { return {}; },
 }: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
