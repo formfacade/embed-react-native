@@ -1,4 +1,4 @@
-![Logo](https://cdn.neartail.com/1FAIpQLScRq0UUyhMrAuRBN39i68JdMoTvq85YCATs394gxuT_K3TU1A/2079056105/image_title/Screenshot%202023-12-28%20at%2012.42.30%20PM.png)
+<img width="941" alt="Formfacade customzie logo" src="https://github.com/formfacade/embed-react-native/assets/54505967/0f61a2da-664d-43c4-9481-20b2b6c7d1bf">
 
 # Customize the UI and embed Google Forms in React native using Formfacade.
 
@@ -7,8 +7,7 @@
 ## Description
 
 Embed Google Forms into your React Native app with a professional UI while removing the Google Form branding using Formfacade.
-
-![Description](https://cdn.formfacade.com/1FAIpQLSf2YKzD1EdnlSaqvIHkJZedwqJyqhcr3TH56YoJ3t1sDlSTFA/root/banner/%40formfacade%3Aembed-react-native.png)
+<img width="672" alt="@formfacade:embed-react-native demo" src="https://github.com/formfacade/embed-react-native/assets/54505967/3166a45e-1493-41e2-b5e4-8de99c2512fb">
 
 ## Features
 
@@ -67,13 +66,13 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 - **isFormFullScreen**: Set to true to display a header with a back button.
 - **headerBackgroundColor**: Background color for the header. Default: #5E33FB.
 - **headerIconColor**: Color of the header icons. Default: #ffffff.
-- **prefillFormFn**: Function to prefill form data. It's optional. 
+- **prefillFormFn**: Function to prefill form data. It's optional. [Example](#prefill)
 - **includeCart**: If your form has an add-to-cart feature, set to true.
 
 
 ## Example
 
-### Basic Usage
+### Basic
 
 ```javascript
 import react from "react";
