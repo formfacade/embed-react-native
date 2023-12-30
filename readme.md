@@ -155,84 +155,86 @@ const styles = StyleSheet.create({
 
 
 ```javascript
-import react from "react";
+
 import {
-    StyleSheet,
-    Alert,
-    SafeAreaView
-} from "react";
-import FormfacadeWebview from "@formfacade.dev/embed-react-native";
+  StyleSheet,
+  Alert,
+  SafeAreaView
+} from "react-native";
+import FormfacadeEmbed from "@formfacade.dev/embed-react-native";
 
 const FORMFACADE_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/";
 
 const FormfacadeSupportForm = () => {
 
-    const onSubmitDefaultHandler = () => {
-        // REPLACE WITH YOUR CODE:
-        Alert.alert(
-            'Form Submitted',
-            'Your form has been submitted successfully.',
-            [
-                {
-                    text: 'Ok',
-                    onPress: () => {},
-                    style: 'cancel',
-                },
-            ],
-            { cancelable: false },
-        );
-    };
-
-    const onBackButtonDefaultHandler = () => {
-        // REPLACE WITH YOUR CODE:
-        Alert.alert(
-            'Triggered Back Button',
-            'You have pressed back button.',
-            [
-                {
-                    text: 'Ok',
-                    onPress: () => {},
-                    style: 'cancel',
-                },
-            ],
-            { cancelable: false },
-        );
-    };
-
-    const prefillFormFn = () => {
-        // To get the entry ID for the input fields, please visit https://formfacade.com/website/embed-google-form-in-website.html.
-        return `
-            entry.1297600622: @formfacade.dev/embed-react-native,
-            entry.813617742: ${new Date()}
-        `;
-    };
-
-
-    return (
-         <>
-            <SafeAreaView style={styles.topBarSafeareaView} />
-            <SafeAreaView style={styles.container}>
-                <FormfacadeEmbed
-                    formFacadeEmbedURL={FORMFACADE_URL}
-                    onSubmitFormHandler={onSubmitFormHandler}
-                    onGoBackHandler={onGoBackHandler}
-                    
-                    prefillFormFn={prefillFormFn}
-                />
-            </SafeAreaView>
-        </>
+  const onSubmitFormHandler = () => {
+    // REPLACE WITH YOUR CODE:
+    Alert.alert(
+      'Form Submitted',
+      'Your form has been submitted successfully.',
+      [
+        {
+          text: 'Ok',
+          onPress: () => { },
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
     );
+  };
+
+  const onGoBackHandler = () => {
+    // REPLACE WITH YOUR CODE:
+    Alert.alert(
+      'Triggered Back Button',
+      'You have pressed back button.',
+      [
+        {
+          text: 'Ok',
+          onPress: () => { },
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  const prefillFormFn = () => {
+    // To get the entry ID for the input fields, please visit https://formfacade.com/website/embed-google-form-in-website.html.
+    return `{
+      'entry.1297600622': '@formfacade.dev/embed-react-native',
+      'entry.813617742': '${new Date()}'
+    }`;
+  };
+
+
+  return (
+    <>
+      <SafeAreaView style={styles.topBarSafeareaView} />
+      <SafeAreaView style={styles.container}>
+        <FormfacadeEmbed
+          formFacadeEmbedURL={FORMFACADE_URL}
+          onSubmitFormHandler={onSubmitFormHandler}
+          onGoBackHandler={onGoBackHandler}
+          isFormFullScreen={false}
+          prefillFormFn={prefillFormFn}
+        />
+      </SafeAreaView>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
-    topBarSafeareaView: {
-        flex: 0, 
-        backgroundColor: PRIMARY
-    },
-    container: {
-        flex: 1
-    }
+  topBarSafeareaView: {
+    flex: 0,
+    backgroundColor: '#5E33FB'
+  },
+  container: {
+    flex: 1
+  }
 });
+
+export default FormfacadeSupportForm;
 
 ```
 
