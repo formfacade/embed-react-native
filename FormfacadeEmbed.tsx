@@ -3,7 +3,6 @@ import WebView from 'react-native-webview';
 import { Alert, StyleSheet } from 'react-native';
 
 interface FormfacadeEmbedProps {
-    prefillFormFn: () => any;
     customCSS?: string;
     formFacadeEmbedURL: string;
     onSubmitFormHandler: (event: any) => void;
@@ -13,6 +12,7 @@ interface FormfacadeEmbedProps {
     includeCart?: boolean;
     headerBackgroundColor?: string;
     headerIconColor?: string;
+    prefillFormFn?: () => any;
 };
 
 const CART_HTML = `
@@ -144,7 +144,6 @@ const onBackButtonDefaultHandler = () => {
 };
 
 const FormfacadeEmbed = ({
-    prefillFormFn,
     customCSS = '',
     formFacadeEmbedURL,
     onSubmitFormHandler = onSubmitDefaultHandler,
@@ -154,6 +153,7 @@ const FormfacadeEmbed = ({
     includeCart = false,
     headerBackgroundColor = '#5E33FB',
     headerIconColor = '#ffffff',
+    prefillFormFn = () => {},
 }: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
