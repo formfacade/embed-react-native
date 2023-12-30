@@ -205,10 +205,14 @@ const FormfacadeEmbed = ({
     };
 
     const handleMessage = (event: any) => {
-        if (event.nativeEvent.data === 'GO_BACK') {
+        const { data } = event.nativeEvent;
+        if (data === 'GO_BACK') {
             handleGoBack();
-        } else if (event.nativeEvent.data?.includes('FORM_SUBMITTED_SUCCESS')) {
-            onSubmitFormHandler(event);
+        } else if (data?.includes('FORM_SUBMITTED_SUCCESS')) {
+            onSubmitFormHandler({
+                submitId: data.split('#')[1],
+                type: 'FORM_SUBMITTED_SUCCESS'
+            });
         }
     };
 
