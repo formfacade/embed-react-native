@@ -75,21 +75,22 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 ### Basic
 
 ```javascript
-import react from "react";
+
 import {
     StyleSheet,
     Alert,
     SafeAreaView
-} from "react";
-import FormfacadeWebview from "@formfacade.dev/embed-react-native";
+} from "react-native";
+import FormfacadeEmbed from "@formfacade.dev/embed-react-native";
 
-const FORMFACADE_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/";
+const FORMFACADE_URL = "https://formfacade.com/include/109671923741510513923/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/classic.js?div=ff-compose";
+
 const PRIMARY = "#5E33FB";
 const WHITE = "#FFFFFF";
 
 const FormfacadeSupportForm = () => {
 
-    const onSubmitDefaultHandler = () => {
+    const onSubmitFormHandler = () => {
         // REPLACE WITH YOUR CODE:
         Alert.alert(
             'Form Submitted',
@@ -105,7 +106,7 @@ const FormfacadeSupportForm = () => {
         );
     };
 
-    const onBackButtonDefaultHandler = () => {
+    const onGoBackHandler = () => {
         // REPLACE WITH YOUR CODE:
         Alert.alert(
             'Triggered Back Button',
@@ -132,7 +133,8 @@ const FormfacadeSupportForm = () => {
                     onGoBackHandler={onGoBackHandler}
                     isFormFullScreen={true}
                     headerBackgroundColor={PRIMARY}
-                    headerIconColor={WHITE}
+                    headerTextColor={WHITE}
+                    headerTitle="Support Form"
                 />
             </SafeAreaView>
         </>
@@ -148,6 +150,9 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+
+export default FormfacadeSupportForm;
 
 ```
 
