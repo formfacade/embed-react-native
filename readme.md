@@ -42,7 +42,8 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
     onGoBackHandler={onGoBackHandler}
     isFormFullScreen={true}
     headerBackgroundColor={"#5E33FB"}
-    headerIconColor={"#FFFFFF"}
+    headerTextColor={"#FFFFFF"}
+    headerTitle={"Formfacade Integration"}
 />
 
 ````
@@ -53,8 +54,9 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 | onSubmitFormHandler   | Function  | `() => Alert.alert('Form Submitted');` | Optional            |
 | onGoBackHandler       | Function  | `() => Alert.alert('Go Back')` | Optional            |
 | isFormFullScreen      | Boolean   | `true`            | Optional            |
+| headerTitle       | String    | ""         | Optional            |
 | headerBackgroundColor | String    | `#5E33FB`         | Optional            |
-| headerIconColor       | String    | `#ffffff`         | Optional            |
+| headerTextColor       | String    | `#ffffff`         | Optional            |
 | prefillFormFn         | Function  | Not specified     | Optional            |
 | includeCart           | Boolean   | `false`           | Optional            |
 
@@ -65,7 +67,7 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 - **onGoBackHandler**: Callback function for navigating back. Default behavior: Shows an alert to go back.
 - **isFormFullScreen**: Set to true to display a header with a back button.
 - **headerBackgroundColor**: Background color for the header. Default: #5E33FB.
-- **headerIconColor**: Color of the header icons. Default: #ffffff.
+- **headerTextColor**: Color of the header icons. Default: #ffffff.
 - **prefillFormFn**: Function to prefill form data. It's optional. [Example](#prefill)
 - **includeCart**: If your form has an add-to-cart feature, set to true.
 
