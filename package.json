@@ -1,6 +1,6 @@
 {
   "name": "@formfacade.dev/embed-react-native",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Elevate your Google Form's appearance to seamlessly align with your website's branding using Formfacade.",
   "main": "index.ts",
   "peerDependencies": {
@@ -27,5 +27,13 @@
     "formfacade-google-form"
   ],
   "author": "Formfacade",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/formfacade/embed-react-native"
+  },
+  "bugs": {
+    "url": "https://github.com/formfacade/embed-react-native/issues"
+  },
+  "homepage": "https://formfacade.com/"
 }
