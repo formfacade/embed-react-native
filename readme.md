@@ -163,7 +163,7 @@ import {
 } from "react-native";
 import FormfacadeEmbed from "@formfacade.dev/embed-react-native";
 
-const FORMFACADE_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/";
+const FORMFACADE_URL = "https://formfacade.com/include/109671923741510513923/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/classic.js?div=ff-compose";
 
 const FormfacadeSupportForm = () => {
 
