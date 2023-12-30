@@ -21,6 +21,8 @@ Embed Google Forms into your React Native app with a professional UI while remov
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Example](#example)
+- [Support](#support) 
 
 ## Installation
 
@@ -46,7 +48,32 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
 ````
 
+| Prop                  | Type      | Default Value     | Required/Optional   |
+| --------------------- | --------- | ----------------- | ------------------- |
+| formFacadeEmbedURL    | String    | Required          | Required            |
+| onSubmitFormHandler   | Function  | `() => Alert.alert('Form Submitted');` | Optional            |
+| onGoBackHandler       | Function  | `() => Alert.alert('Go Back')` | Optional            |
+| isFormFullScreen      | Boolean   | `true`            | Optional            |
+| headerBackgroundColor | String    | `#5E33FB`         | Optional            |
+| headerIconColor       | String    | `#ffffff`         | Optional            |
+| prefillFormFn         | Function  | Not specified     | Optional            |
+| includeCart           | Boolean   | `false`           | Optional            |
+
+
+
+- **formFacadeEmbedURL**: URL of the Formfacade embedded Google Form. This is a required field.
+- **onSubmitFormHandler**: Callback function triggered on form submission. Default behavior: Shows an alert for form submission.
+- **onGoBackHandler**: Callback function for navigating back. Default behavior: Shows an alert to go back.
+- **isFormFullScreen**: Set to true to display a header with a back button.
+- **headerBackgroundColor**: Background color for the header. Default: #5E33FB.
+- **headerIconColor**: Color of the header icons. Default: #ffffff.
+- **prefillFormFn**: Function to prefill form data. It's optional. 
+- **includeCart**: If your form has an add-to-cart feature, set to true.
+
+
 ## Example
+
+### Basic Usage
 
 ```javascript
 import react from "react";
@@ -57,8 +84,7 @@ import {
 } from "react";
 import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
-// MAKE SURE URL DOES NOT HAVE ANY QUERY PARAMS.
-const FORMFACADE_FORM_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLScVC2DLMntthPubxqJELBQapcrfyL3KffvwJrwcYMMz2e6EVA";
+const FORMFACADE_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/";
 const PRIMARY = "#5E33FB";
 const WHITE = "#FFFFFF";
 
@@ -102,7 +128,7 @@ const FormfacadeSupportForm = () => {
             <SafeAreaView style={styles.topBarSafeareaView} />
             <SafeAreaView style={styles.container}>
                 <FormfacadeEmbed
-                    formFacadeEmbedURL={FORMFACADE_FORM_URL}
+                    formFacadeEmbedURL={FORMFACADE_URL}
                     onSubmitFormHandler={onSubmitFormHandler}
                     onGoBackHandler={onGoBackHandler}
                     isFormFullScreen={true}
@@ -125,3 +151,93 @@ const styles = StyleSheet.create({
 });
 
 ```
+
+### Prefill
+
+
+```javascript
+import react from "react";
+import {
+    StyleSheet,
+    Alert,
+    SafeAreaView
+} from "react";
+import FormfacadeWebview from "@formfacade.dev/embed-react-native";
+
+const FORMFACADE_URL = "https://formfacade.com/public/109671923741510513923/home/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/";
+
+const FormfacadeSupportForm = () => {
+
+    const onSubmitDefaultHandler = () => {
+        // REPLACE WITH YOUR CODE:
+        Alert.alert(
+            'Form Submitted',
+            'Your form has been submitted successfully.',
+            [
+                {
+                    text: 'Ok',
+                    onPress: () => {},
+                    style: 'cancel',
+                },
+            ],
+            { cancelable: false },
+        );
+    };
+
+    const onBackButtonDefaultHandler = () => {
+        // REPLACE WITH YOUR CODE:
+        Alert.alert(
+            'Triggered Back Button',
+            'You have pressed back button.',
+            [
+                {
+                    text: 'Ok',
+                    onPress: () => {},
+                    style: 'cancel',
+                },
+            ],
+            { cancelable: false },
+        );
+    };
+
+    const prefillFormFn = () => {
+        // To get the entry ID for the input fields, please visit https://formfacade.com/website/embed-google-form-in-website.html.
+        return `
+            entry.1297600622: @formfacade.dev/embed-react-native,
+            entry.813617742: ${new Date()}
+        `;
+    };
+
+
+    return (
+         <>
+            <SafeAreaView style={styles.topBarSafeareaView} />
+            <SafeAreaView style={styles.container}>
+                <FormfacadeEmbed
+                    formFacadeEmbedURL={FORMFACADE_URL}
+                    onSubmitFormHandler={onSubmitFormHandler}
+                    onGoBackHandler={onGoBackHandler}
+                    
+                    prefillFormFn={prefillFormFn}
+                />
+            </SafeAreaView>
+        </>
+    );
+}
+
+const styles = StyleSheet.create({
+    topBarSafeareaView: {
+        flex: 0, 
+        backgroundColor: PRIMARY
+    },
+    container: {
+        flex: 1
+    }
+});
+
+```
+
+
+## Support
+
+For support, email support@formfacade.com
