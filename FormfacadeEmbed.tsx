@@ -11,7 +11,7 @@ interface FormfacadeEmbedProps {
     headerTitle?: string;
     includeCart?: boolean;
     headerBackgroundColor?: string;
-    headerIconColor?: string;
+    headerTextColor?: string;
     prefillFormFn?: () => any;
 };
 
@@ -61,7 +61,7 @@ const CART_HTML = `
 
 `;
 
-const getHeaderIcon = (headerIconColor?: string) => {
+const getHeaderIcon = (headerTextColor?: string) => {
     return `
         <button 
             id="cart-menu"
@@ -70,7 +70,7 @@ const getHeaderIcon = (headerIconColor?: string) => {
             onclick="showCart()"
         >
             <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25">
-                <path fill="${headerIconColor}" d="M286.788-81Q257-81 236-102.212q-21-21.213-21-51Q215-183 236.212-204q21.213-21 51-21Q317-225 338-203.788q21 21.213 21 51Q359-123 337.788-102q-21.213 21-51 21Zm400 0Q657-81 636-102.212q-21-21.213-21-51Q615-183 636.212-204q21.213-21 51-21Q717-225 738-203.788q21 21.213 21 51Q759-123 737.788-102q-21.213 21-51 21ZM205-801h589.074q22.964 0 34.945 21Q841-759 829-738L694-495q-11 19-28.559 30.5Q647.881-453 627-453H324l-56 104h491v60H277q-42 0-60.5-28t.5-63l64-118-152-322H51v-60h117l37 79Z"/>
+                <path fill="${headerTextColor}" d="M286.788-81Q257-81 236-102.212q-21-21.213-21-51Q215-183 236.212-204q21.213-21 51-21Q317-225 338-203.788q21 21.213 21 51Q359-123 337.788-102q-21.213 21-51 21Zm400 0Q657-81 636-102.212q-21-21.213-21-51Q615-183 636.212-204q21.213-21 51-21Q717-225 738-203.788q21 21.213 21 51Q759-123 737.788-102q-21.213 21-51 21ZM205-801h589.074q22.964 0 34.945 21Q841-759 829-738L694-495q-11 19-28.559 30.5Q647.881-453 627-453H324l-56 104h491v60H277q-42 0-60.5-28t.5-63l64-118-152-322H51v-60h117l37 79Z"/>
             </svg>
             <span 
                 class="hidden bg-red-700 text-white font-extrabold text-center rounded-full h-4 w-4 items-center justify-center absolute top-1 right-1 ff-cart-count m-auto ff-cart-icon"
@@ -81,12 +81,12 @@ const getHeaderIcon = (headerIconColor?: string) => {
     `;
 }
 
-const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgroundColor?: string, headerIconColor?:string) => {
+const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgroundColor?: string, headerTextColor?:string) => {
     if(!headerBackgroundColor) {
         headerBackgroundColor = '#5E33FB';
     }
-    if(!headerIconColor) {
-        headerIconColor = '#ffffff';
+    if(!headerTextColor) {
+        headerTextColor = '#ffffff';
     }
     return `
         <header class="ff-mobile-header">
@@ -96,7 +96,7 @@ const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgrou
                     type="button"
                     class="ff-mobile-header-inner-container"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="${headerIconColor}" viewBox="0 -960 960 960" width="24">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="${headerTextColor}" viewBox="0 -960 960 960" width="24">
                         <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
                     </svg>
                 </button>
@@ -105,7 +105,7 @@ const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgrou
                 </div>
             </div>
             <div class="ff-mobile-header-right">
-                ${includeCart ? getHeaderIcon(headerIconColor) : ''}
+                ${includeCart ? getHeaderIcon(headerTextColor) : ''}
             </div>
         </header>
     `;
@@ -152,7 +152,7 @@ const FormfacadeEmbed = ({
     headerTitle = '',
     includeCart = false,
     headerBackgroundColor = '#5E33FB',
-    headerIconColor = '#ffffff',
+    headerTextColor = '#ffffff',
     prefillFormFn = () => { return {}; },
 }: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
@@ -245,7 +245,7 @@ const FormfacadeEmbed = ({
                     padding-left: 15px;
                     padding-right: 6px;
                     z-index: 6;
-                    color: ${headerIconColor};
+                    color: ${headerTextColor};
                 }
                 .ff-mobile-header-left {
                     display: flex;
@@ -298,7 +298,7 @@ const FormfacadeEmbed = ({
                 }
             </script>
             
-            ${isFormFullScreen ? getHeaderHTML(headerTitle, includeCart, headerBackgroundColor, headerIconColor) : ''}
+            ${isFormFullScreen ? getHeaderHTML(headerTitle, includeCart, headerBackgroundColor, headerTextColor) : ''}
             
             ${includeCart ? CART_HTML : ''}
 
