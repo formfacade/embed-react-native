@@ -211,7 +211,7 @@ const FormfacadeSupportForm = () => {
     // To get the entry ID for the input fields, please visit https://formfacade.com/website/does-formfacade-support-pre-filled-survey-links-like-native-google-forms-on-1FAIpQLSfGvg22V7Lzyw_5AEbKBSpklS_TMw6tKxcQiDqlC9KvfBVTgQ.html
     return {
       'entry.1297600622': '@formfacade.dev/embed-react-native',
-      'entry.813617742': '${new Date()}'
+      'entry.813617742': `${new Date()}`
     };
   };
 
