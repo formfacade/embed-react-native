@@ -3,16 +3,17 @@ import WebView from 'react-native-webview';
 import { Alert, StyleSheet } from 'react-native';
 
 interface FormfacadeEmbedProps {
-    customCSS?: string;
-    formFacadeEmbedURL: string;
-    onSubmitFormHandler: (event: any) => void;
-    onGoBackHandler?: () => void;
-    isFormFullScreen?: boolean;
+    formFacadeURL: string;
+    fullScreen?: boolean;
     headerTitle?: string;
-    includeCart?: boolean;
     headerBackgroundColor?: string;
     headerTextColor?: string;
-    prefillFormFn?: () => any;
+    includeCart?: boolean;
+    customCSS?: string;
+    
+    onSubmitForm: (event: any) => void;
+    onGoBack?: () => void;
+    prefillForm?: () => any;
 };
 
 const CART_HTML = `
@@ -128,7 +129,7 @@ const onSubmitDefaultHandler = () => {
     );
 };
 
-const onBackButtonDefaultHandler = () => {
+const onGoBackDefaultHandler = () => {
     Alert.alert(
         'Triggered Back Button',
         'You have pressed back button.',
@@ -144,63 +145,68 @@ const onBackButtonDefaultHandler = () => {
 };
 
 const FormfacadeEmbed = ({
-    customCSS = '',
-    formFacadeEmbedURL,
-    onSubmitFormHandler = onSubmitDefaultHandler,
-    onGoBackHandler = onBackButtonDefaultHandler,
-    isFormFullScreen = true,
+    formFacadeURL,
+    fullScreen = true,
     headerTitle = '',
     includeCart = false,
     headerBackgroundColor = '#5E33FB',
     headerTextColor = '#ffffff',
-    prefillFormFn = () => { return {}; },
+    customCSS = '',
+
+    onSubmitForm = onSubmitDefaultHandler,
+    onGoBack = onGoBackDefaultHandler,
+    prefillForm = () => { return {}; },
 }: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
-    if (formFacadeEmbedURL?.includes('/public/')) {
-        formFacadeEmbedURL = formFacadeEmbedURL.replace('/public/', '/include/');
+    if(!formFacadeURL) {
+        console.warn('FormfacadeEmbed: formFacadeURL is required.');
+    }
+
+    if (formFacadeURL?.includes('/public/')) {
+        formFacadeURL = formFacadeURL.replace('/public/', '/include/');
     
-        if (formFacadeEmbedURL?.includes('/home/form/')) {
-            formFacadeEmbedURL = formFacadeEmbedURL.replace('/home/form/', '/form/');
-        } else if (formFacadeEmbedURL?.includes('/all/form/')) {
-            formFacadeEmbedURL = formFacadeEmbedURL.replace('/all/form/', '/form/');
+        if (formFacadeURL?.includes('/home/form/')) {
+            formFacadeURL = formFacadeURL.replace('/home/form/', '/form/');
+        } else if (formFacadeURL?.includes('/all/form/')) {
+            formFacadeURL = formFacadeURL.replace('/all/form/', '/form/');
         }
     
         // Save existing query parameters
-        const queryParamsStartIndex = formFacadeEmbedURL.indexOf('?');
+        const queryParamsStartIndex = formFacadeURL.indexOf('?');
 
         let queryParams = '';
     
         if (queryParamsStartIndex !== -1) {
-            queryParams = formFacadeEmbedURL.slice(queryParamsStartIndex);
+            queryParams = formFacadeURL.slice(queryParamsStartIndex);
 
-            formFacadeEmbedURL = formFacadeEmbedURL.slice(0, queryParamsStartIndex);
+            formFacadeURL = formFacadeURL.slice(0, queryParamsStartIndex);
         }
 
 
-        const endsWithSlash = formFacadeEmbedURL.endsWith('/');
+        const endsWithSlash = formFacadeURL.endsWith('/');
     
         if (!endsWithSlash) {
-            formFacadeEmbedURL += '/';
+            formFacadeURL += '/';
         }
     
     
-        formFacadeEmbedURL += 'tailwind.js';
+        formFacadeURL += 'tailwind.js';
         if(queryParamsStartIndex < 0) {
-            formFacadeEmbedURL += '?';
+            formFacadeURL += '?';
         }
     
         // Append the original query parameters, if any
         if (queryParams.length > 0) {
-            formFacadeEmbedURL += queryParams;
+            formFacadeURL += queryParams;
         }
 
-        formFacadeEmbedURL += '&div=ff-compose';
+        formFacadeURL += '&div=ff-compose';
     }
 
     const handleGoBack = () => {
-        if (onGoBackHandler) {
-            onGoBackHandler();
+        if (onGoBack) {
+            onGoBack();
         }
     };
 
@@ -209,7 +215,7 @@ const FormfacadeEmbed = ({
         if (data === 'GO_BACK') {
             handleGoBack();
         } else if (data?.includes('FORM_SUBMITTED_SUCCESS')) {
-            onSubmitFormHandler({
+            onSubmitForm({
                 submitId: data?.split?.('#')?.[1] || '',
                 type: 'FORM_SUBMITTED_SUCCESS'
             });
@@ -225,7 +231,7 @@ const FormfacadeEmbed = ({
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
                 function prefillForm() {
-                    return ${prefillFormFn()};
+                    return ${prefillForm()};
                 }
             </script>
             <link rel="stylesheet" href="https://near.tl/css/tailwind.css">
@@ -264,7 +270,7 @@ const FormfacadeEmbed = ({
                 }
                 .ff-compose-parent {
                     padding: 14px;
-                    padding-top: ${isFormFullScreen ? '50px' : '0px'};
+                    padding-top: ${fullScreen ? '50px' : '0px'};
                     background-color: var(--ff-bgcolor);
                 }
                 .ff-mobile-header-inner-container {
@@ -302,7 +308,7 @@ const FormfacadeEmbed = ({
                 }
             </script>
             
-            ${isFormFullScreen ? getHeaderHTML(headerTitle, includeCart, headerBackgroundColor, headerTextColor) : ''}
+            ${fullScreen ? getHeaderHTML(headerTitle, includeCart, headerBackgroundColor, headerTextColor) : ''}
             
             ${includeCart ? CART_HTML : ''}
 
@@ -312,7 +318,7 @@ const FormfacadeEmbed = ({
                 </div>
             </div>
         </body>
-        <script async defer src="${formFacadeEmbedURL}&prefill=prefillForm"></script>
+        <script async defer src="${formFacadeURL}&prefill=prefillForm"></script>
         <script>
             window.facadeListener = {
                 onChange: function (arg) {

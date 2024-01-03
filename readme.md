@@ -2,7 +2,7 @@
 
 # Customize the UI and embed Google Forms in React native using Formfacade.
 
-[![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE.md)
 
 ## Description
 
@@ -38,10 +38,10 @@ npm i @formfacade.dev/embed-react-native
 import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
 <FormfacadeEmbed
-    formFacadeEmbedURL={FORMFACADE_FORM_URL}
-    onSubmitFormHandler={onSubmitFormHandler}
-    onGoBackHandler={onGoBackHandler}
-    isFormFullScreen={true}
+    formFacadeURL={FORMFACADE_FORM_URL}
+    onSubmitForm={onSubmitForm}
+    onGoBack={onGoBack}
+    fullScreen={true}
     headerBackgroundColor={"#5E33FB"}
     headerTextColor={"#FFFFFF"}
     headerTitle={"Formfacade Integration"}
@@ -51,25 +51,25 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
 | Prop                  | Type      | Default Value     | Required/Optional   |
 | --------------------- | --------- | ----------------- | ------------------- |
-| formFacadeEmbedURL    | String    | Required          | Required            |
-| onSubmitFormHandler   | Function  | `() => Alert.alert('Form Submitted');` | Optional            |
-| onGoBackHandler       | Function  | `() => Alert.alert('Go Back')` | Optional            |
-| isFormFullScreen      | Boolean   | `true`            | Optional            |
+| formFacadeURL    | String    | Required          | Required            |
+| onSubmitForm   | Function  | `() => Alert.alert('Form Submitted');` | Optional            |
+| onGoBack       | Function  | `() => Alert.alert('Go Back')` | Optional            |
+| fullScreen      | Boolean   | `true`            | Optional            |
 | headerTitle       | String    | ""         | Optional            |
 | headerBackgroundColor | String    | `#5E33FB`         | Optional            |
 | headerTextColor       | String    | `#ffffff`         | Optional            |
-| prefillFormFn         | Function  | Not specified     | Optional            |
+| prefillForm         | Function  | Not specified     | Optional            |
 | includeCart           | Boolean   | `false`           | Optional            |
 
 
 
-- **formFacadeEmbedURL**: URL of the Formfacade embedded Google Form. This is a required field.
-- **onSubmitFormHandler**: Callback function triggered on form submission. Default behavior: Shows an alert for form submission.
-- **onGoBackHandler**: Callback function for navigating back. Default behavior: Shows an alert to go back.
-- **isFormFullScreen**: Set to true to display a header with a back button.
+- **formFacadeURL**: URL of the Formfacade embedded Google Form. This is a required field.
+- **onSubmitForm**: Callback function triggered on form submission. Default behavior: Shows an alert for form submission.
+- **onGoBack**: Callback function for navigating back. Default behavior: Shows an alert to go back.
+- **fullScreen**: Set to true to display a header with a back button.
 - **headerBackgroundColor**: Background color for the header. Default: #5E33FB.
 - **headerTextColor**: Color of the header icons. Default: #ffffff.
-- **prefillFormFn**: Function to prefill form data. It's optional. [Example](#prefill)
+- **prefillForm**: Function to prefill form data. It's optional. [Example](#prefill)
 - **includeCart**: If your form has an add-to-cart feature, set to true.
 
 
@@ -93,7 +93,7 @@ const WHITE = "#FFFFFF";
 
 const FormfacadeSupportForm = () => {
 
-    const onSubmitFormHandler = () => {
+    const onSubmitForm = () => {
         // REPLACE WITH YOUR CODE:
         Alert.alert(
             'Form Submitted',
@@ -109,7 +109,7 @@ const FormfacadeSupportForm = () => {
         );
     };
 
-    const onGoBackHandler = () => {
+    const onGoBack = () => {
         // REPLACE WITH YOUR CODE:
         Alert.alert(
             'Triggered Back Button',
@@ -131,10 +131,10 @@ const FormfacadeSupportForm = () => {
             <SafeAreaView style={styles.topBarSafeareaView} />
             <SafeAreaView style={styles.container}>
                 <FormfacadeEmbed
-                    formFacadeEmbedURL={FORMFACADE_URL}
-                    onSubmitFormHandler={onSubmitFormHandler}
-                    onGoBackHandler={onGoBackHandler}
-                    isFormFullScreen={true}
+                    formFacadeURL={FORMFACADE_URL}
+                    onSubmitForm={onSubmitForm}
+                    onGoBack={onGoBack}
+                    fullScreen={true}
                     headerBackgroundColor={PRIMARY}
                     headerTextColor={WHITE}
                     headerTitle="Formfacade Integration"
@@ -175,7 +175,7 @@ const FORMFACADE_URL = "https://formfacade.com/include/109671923741510513923/for
 
 const FormfacadeSupportForm = () => {
 
-  const onSubmitFormHandler = () => {
+  const onSubmitForm = () => {
     // REPLACE WITH YOUR CODE:
     Alert.alert(
       'Form Submitted',
@@ -191,7 +191,7 @@ const FormfacadeSupportForm = () => {
     );
   };
 
-  const onGoBackHandler = () => {
+  const onGoBack = () => {
     // REPLACE WITH YOUR CODE:
     Alert.alert(
       'Triggered Back Button',
@@ -207,12 +207,12 @@ const FormfacadeSupportForm = () => {
     );
   };
 
-  const prefillFormFn = () => {
-    // To get the entry ID for the input fields, please visit https://formfacade.com/website/embed-google-form-in-website.html.
-    return `{
+  const prefillForm = () => {
+    // To get the entry ID for the input fields, please visit https://formfacade.com/website/does-formfacade-support-pre-filled-survey-links-like-native-google-forms-on-1FAIpQLSfGvg22V7Lzyw_5AEbKBSpklS_TMw6tKxcQiDqlC9KvfBVTgQ.html
+    return {
       'entry.1297600622': '@formfacade.dev/embed-react-native',
       'entry.813617742': '${new Date()}'
-    }`;
+    };
   };
 
 
@@ -221,11 +221,11 @@ const FormfacadeSupportForm = () => {
       <SafeAreaView style={styles.topBarSafeareaView} />
       <SafeAreaView style={styles.container}>
         <FormfacadeEmbed
-          formFacadeEmbedURL={FORMFACADE_URL}
-          onSubmitFormHandler={onSubmitFormHandler}
-          onGoBackHandler={onGoBackHandler}
-          isFormFullScreen={false}
-          prefillFormFn={prefillFormFn}
+          formFacadeURL={FORMFACADE_URL}
+          onSubmitForm={onSubmitForm}
+          onGoBack={onGoBack}
+          prefillForm={prefillForm}
+          fullScreen={false}
         />
       </SafeAreaView>
     </>
