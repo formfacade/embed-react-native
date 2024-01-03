@@ -231,7 +231,12 @@ const FormfacadeEmbed = ({
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script>
                 function prefillForm() {
-                    return ${prefillForm()};
+                    try {
+                        return ${JSON.stringify(prefillForm())};
+                    } catch(error) {
+                        console.error(error);
+                        return {};
+                    }
                 }
             </script>
             <link rel="stylesheet" href="https://near.tl/css/tailwind.css">
