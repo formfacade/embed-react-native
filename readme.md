@@ -93,7 +93,7 @@ import FormfacadeWebview from "@formfacade.dev/embed-react-native";
 
 
 ## Example
-[![Try with Expo](https://img.shields.io/badge/Runs%20with%20Expo%20Go-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://snack.expo.dev/@formfacade/embed-google-form-in-react-native-app-using-formfacade-addon)
+[![Try with Expo](https://img.shields.io/badge/Runs%20with%20Expo%20Go-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://snack.expo.dev/@formfacade/embed-google-form-in-react-native-app-using-formfacade-addon?platform=android)
 
 ### Basic
 
