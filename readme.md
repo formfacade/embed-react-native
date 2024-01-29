@@ -26,11 +26,30 @@ Embed Google Forms into your React Native app with a professional UI while remov
 
 ## Installation
 
-Instructions on how to install the package:
+1. **Download the FormFacade Plugin:**
+   Obtain the FormFacade plugin from the [Google Workspace Marketplace](https://workspace.google.com/marketplace/app/formfacade/743872305260).
 
-```bash
-npm i @formfacade.dev/embed-react-native
-```
+2. **Access Google Forms:**
+   Open your Google Form
+
+3. **Add the FormFacade Add-on:**
+   - Click on the 'Add-ons' button in Google Forms.
+   - Choose 'Formfacade' from the list of available add-ons.
+   - Select 'Embed in a web page'.
+
+4. **Embedding the Form:**
+   - Upon clicking 'Embed', a dialog will appear asking, “Where do you want to embed this form?”
+   - Choose "Embed in React App" for integration.
+   - Retrieve the 'formfacadeURL' from this selection.
+
+5. **Integrate with React App:**
+   Use the following npm command to install the required package for embedding the form within your React application:
+
+  ```bash
+  npm i @formfacade.dev/embed-react-native
+  ```
+For more detailed information, please visit [FAQ: How do I embed a Google Form in the Mobile (React Native)](https://docs.google.com/document/d/1f2dgfuz2YJxNYx2QZvbKtJfIF73V2aM9TYyPZQaj4WA/edit)
+
 
 ## Usage
 
