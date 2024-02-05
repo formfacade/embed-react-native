@@ -46,7 +46,7 @@ Embed Google Forms into your React Native app with a professional UI while remov
    Use the following npm command to install the required package for embedding the form within your React application:
 
   ```bash
-  npm i @formfacade.dev/embed-react-native
+  npm i @formfacade/embed-react-native
   ```
 For more detailed information, please visit [FAQ: How do I embed a Google Form in the Mobile (React Native)](https://docs.google.com/document/d/1f2dgfuz2YJxNYx2QZvbKtJfIF73V2aM9TYyPZQaj4WA/edit)
 
@@ -54,7 +54,7 @@ For more detailed information, please visit [FAQ: How do I embed a Google Form i
 ## Usage
 
 ```javascript
-import FormfacadeWebview from "@formfacade.dev/embed-react-native";
+import FormfacadeWebview from "@formfacade/embed-react-native";
 
 <FormfacadeEmbed
     formFacadeURL={FORMFACADE_FORM_URL}
@@ -104,7 +104,7 @@ import {
     Alert,
     SafeAreaView
 } from "react-native";
-import FormfacadeEmbed from "@formfacade.dev/embed-react-native";
+import FormfacadeEmbed from "@formfacade/embed-react-native";
 
 const FORMFACADE_URL = "https://formfacade.com/include/109671923741510513923/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/classic.js?div=ff-compose";
 
@@ -189,7 +189,7 @@ import {
   Alert,
   SafeAreaView
 } from "react-native";
-import FormfacadeEmbed from "@formfacade.dev/embed-react-native";
+import FormfacadeEmbed from "@formfacade/embed-react-native";
 
 const FORMFACADE_URL = "https://formfacade.com/include/109671923741510513923/form/1FAIpQLSetAzIt89c0hBCWhI1AzUWRXDQ0VV1JAUph6i_3dvNpT-ZpqA/classic.js?div=ff-compose";
 
@@ -230,7 +230,7 @@ const FormfacadeSupportForm = () => {
   const prefillForm = () => {
     // To get the entry ID for the input fields, please visit https://formfacade.com/website/does-formfacade-support-pre-filled-survey-links-like-native-google-forms-on-1FAIpQLSfGvg22V7Lzyw_5AEbKBSpklS_TMw6tKxcQiDqlC9KvfBVTgQ.html
     return {
-      'entry.1297600622': '@formfacade.dev/embed-react-native',
+      'entry.1297600622': '@formfacade/embed-react-native',
       'entry.813617742': `${new Date()}`
     };
   };

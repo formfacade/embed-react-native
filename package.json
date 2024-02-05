@@ -1,14 +1,14 @@
 {
-  "name": "@formfacade.dev/embed-react-native",
-  "version": "1.0.4",
+  "name": "@formfacade/embed-react-native",
+  "version": "0.0.1",
   "description": "Elevate your Google Form's appearance to seamlessly align with your website's branding using Formfacade.",
   "main": "index.ts",
   "peerDependencies": {
-    "react-native": "*",
-    "react": "*"
+    "react": "*",
+    "react-native": "*"
   },
   "dependencies": {
-    "react-native-webview": "11.26.0"
+    "react-native-webview": "^13.7.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
