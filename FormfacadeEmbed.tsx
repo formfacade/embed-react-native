@@ -10,7 +10,7 @@ interface FormfacadeEmbedProps {
     headerTextColor?: string;
     includeCart?: boolean;
     customCSS?: string;
-    
+
     onSubmitForm: (event: any) => void;
     onGoBack?: () => void;
     prefillForm?: () => any;
@@ -82,11 +82,11 @@ const getHeaderIcon = (headerTextColor?: string) => {
     `;
 }
 
-const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgroundColor?: string, headerTextColor?:string) => {
-    if(!headerBackgroundColor) {
+const getHeaderHTML = (headerTitle: string, includeCart: boolean, headerBackgroundColor?: string, headerTextColor?: string) => {
+    if (!headerBackgroundColor) {
         headerBackgroundColor = '#5E33FB';
     }
-    if(!headerTextColor) {
+    if (!headerTextColor) {
         headerTextColor = '#ffffff';
     }
     return `
@@ -121,7 +121,7 @@ const onSubmitDefaultHandler = () => {
         [
             {
                 text: 'Ok',
-                onPress: () => {},
+                onPress: () => { },
                 style: 'cancel',
             },
         ],
@@ -136,7 +136,7 @@ const onGoBackDefaultHandler = () => {
         [
             {
                 text: 'Ok',
-                onPress: () => {},
+                onPress: () => { },
                 style: 'cancel',
             },
         ],
@@ -159,24 +159,24 @@ const FormfacadeEmbed = ({
 }: FormfacadeEmbedProps) => {
     const formFacadeWebviewRef = React.useRef(null);
 
-    if(!formFacadeURL) {
+    if (!formFacadeURL) {
         console.warn('FormfacadeEmbed: formFacadeURL is required.');
     }
 
     if (formFacadeURL?.includes('/public/')) {
         formFacadeURL = formFacadeURL.replace('/public/', '/include/');
-    
+
         if (formFacadeURL?.includes('/home/form/')) {
             formFacadeURL = formFacadeURL.replace('/home/form/', '/form/');
         } else if (formFacadeURL?.includes('/all/form/')) {
             formFacadeURL = formFacadeURL.replace('/all/form/', '/form/');
         }
-    
+
         // Save existing query parameters
         const queryParamsStartIndex = formFacadeURL.indexOf('?');
 
         let queryParams = '';
-    
+
         if (queryParamsStartIndex !== -1) {
             queryParams = formFacadeURL.slice(queryParamsStartIndex);
 
@@ -185,17 +185,17 @@ const FormfacadeEmbed = ({
 
 
         const endsWithSlash = formFacadeURL.endsWith('/');
-    
+
         if (!endsWithSlash) {
             formFacadeURL += '/';
         }
-    
-    
+
+
         formFacadeURL += 'tailwind.js';
-        if(queryParamsStartIndex < 0) {
+        if (queryParamsStartIndex < 0) {
             formFacadeURL += '?';
         }
-    
+
         // Append the original query parameters, if any
         if (queryParams.length > 0) {
             formFacadeURL += queryParams;
