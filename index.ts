@@ -1,3 +1,3 @@
-import FormfacadeEmbed from "./FormfacadeEmbed.tsx";
+import FormfacadeEmbed from "./FormfacadeEmbed";
 
 export default FormfacadeEmbed;
