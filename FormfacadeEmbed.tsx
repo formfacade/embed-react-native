@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import WebView from 'react-native-webview';
 import { Alert, StyleSheet } from 'react-native';
 
@@ -12,7 +12,7 @@ interface FormfacadeEmbedProps {
     customCSS?: string;
 
     onSubmitForm: (event: any) => void;
-    onGoBack?: () => void;
+    onGoBack?: (arg: any) => void;
     prefillForm?: () => any;
 };
 
@@ -129,7 +129,7 @@ const onSubmitDefaultHandler = () => {
     );
 };
 
-const onGoBackDefaultHandler = () => {
+const onGoBackDefaultHandler = (arg: any) => {
     Alert.alert(
         'Triggered Back Button',
         'You have pressed back button.',
@@ -157,7 +157,7 @@ const FormfacadeEmbed = ({
     onGoBack = onGoBackDefaultHandler,
     prefillForm = () => { return {}; },
 }: FormfacadeEmbedProps) => {
-    const formFacadeWebviewRef = React.useRef(null);
+    const formFacadeWebviewRef = useRef<any>(null);
 
     if (!formFacadeURL) {
         console.warn('FormfacadeEmbed: formFacadeURL is required.');
@@ -204,17 +204,26 @@ const FormfacadeEmbed = ({
         formFacadeURL += '&div=ff-compose';
     }
 
-    const handleGoBack = () => {
+    const handleGoBack = (arg: any) => {
         if (onGoBack) {
-            onGoBack();
+            onGoBack(arg);
         }
     };
 
     const handleMessage = (event: any) => {
         const { data } = event.nativeEvent;
-        if (data === 'GO_BACK') {
-            handleGoBack();
-        } else if (data?.includes('FORM_SUBMITTED_SUCCESS')) {
+        if (data?.includes('CLOSE')) {
+            handleGoBack({
+                type: 'CLOSE'
+            });
+        }
+        else if (data?.includes('ABANDONED')) {
+            handleGoBack({
+                type: 'ABANDONED',
+                draftId: data?.split?.('#')?.[1] || ''
+            });
+        }
+        else if (data?.includes('FORM_SUBMITTED_SUCCESS')) {
             onSubmitForm({
                 submitId: data?.split?.('#')?.[1] || '',
                 type: 'FORM_SUBMITTED_SUCCESS'
@@ -309,7 +318,11 @@ const FormfacadeEmbed = ({
                     }
                 }
                 function goBackHandler() {
-                    window.ReactNativeWebView.postMessage("GO_BACK");
+                    let key = "CLOSE";
+                    if(window?.formFacade?.draft?.draftSeq) {
+                        key = "ABANDONED#" + window?.formFacade?.draft?.draftSeq;
+                    }
+                    window.ReactNativeWebView.postMessage(key);
                 }
             </script>
             
