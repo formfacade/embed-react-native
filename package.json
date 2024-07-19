@@ -1,13 +1,11 @@
 {
   "name": "@formfacade/embed-react-native",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Elevate your Google Form's appearance to seamlessly align with your website's branding using Formfacade.",
   "main": "index.ts",
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
-  },
-  "dependencies": {
+    "react-native": "*",
     "react-native-webview": "*"
   },
   "scripts": {
