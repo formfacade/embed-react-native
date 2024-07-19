@@ -48,6 +48,19 @@ Embed Google Forms into your React Native app with a professional UI while remov
   ```bash
   npm i @formfacade/embed-react-native
   ```
+6. **Install React Native WebView:**
+   Install the React Native WebView, which is a prerequisite for embedding the form:
+
+  ```bash
+  npm install react-native-webview
+  ```
+7. **Link Native Dependencies:**
+   After installing the WebView, navigate to the iOS directory and install the required pods:
+
+  ```bash
+  cd ios
+  pod install
+  ```
 For more detailed information, please visit [FAQ: How do I embed a Google Form in the Mobile (React Native)](https://docs.google.com/document/d/1f2dgfuz2YJxNYx2QZvbKtJfIF73V2aM9TYyPZQaj4WA/edit)
 
 
